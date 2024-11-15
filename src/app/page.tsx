@@ -15,7 +15,7 @@ export default function Home() {
 	async function fetchUsuarios() {
 		const response = await fetch('/api/usuarios');
 		const data = await response.json();
-		setUsuarios(data);
+		setUsuarios(data.data || []);
 	}
 
 	async function handleSubmit(e: React.FormEvent) {
@@ -65,16 +65,17 @@ export default function Home() {
 
 			<h2 className="text-xl font-bold mb-4">Usuários:</h2>
 			<div className="space-y-2">
-				{Array.isArray(usuarios) && usuarios.map((usuario) => (
-					<div key={usuario.id} className="border p-4 rounded">
-						<p>
-							<strong>Nome:</strong> {usuario.nome}
-						</p>
-						<p>
-							<strong>Email:</strong> {usuario.email}
-						</p>
-					</div>
-				))}
+				{Array.isArray(usuarios) &&
+					usuarios.map((usuario) => (
+						<div key={usuario.id} className="border p-4 rounded">
+							<p>
+								<strong>Nome:</strong> {usuario.nome}
+							</p>
+							<p>
+								<strong>Email:</strong> {usuario.email}
+							</p>
+						</div>
+					))}
 			</div>
 		</main>
 	);
